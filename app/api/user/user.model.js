@@ -5,8 +5,7 @@ import mongoose from 'mongoose';
 import {Schema} from 'mongoose';
 
 
-//user schema 정의
-
+//schema 정보
 let UserSchema = new Schema({
 
     name : {
@@ -22,6 +21,7 @@ let UserSchema = new Schema({
         type : String,
         required : true,
     },
+    salt : String,
 });
 
 //validation data

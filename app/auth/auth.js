@@ -28,8 +28,8 @@ export function isAuthenticated() {
     });
 }
 
-export function signToken(id, role) {
-  return jwt.sign({ _id: id}, 'hodong-secret', {
+export function signToken(id, name) {
+  return jwt.sign({ _id: id, name : name}, 'hodong-secret', {
     expiresIn: 60 * 60 * 5
   });
 }
