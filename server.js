@@ -3,6 +3,7 @@ import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
 import morgan from 'morgan';
 
+import api from './app/api';
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -31,11 +32,9 @@ app.use((req, res, next) => {
   next();
 });
 
-app.route("*").get((req, res) => {
-  res.status(200).send({
-      message : "Server Started"
-  })
-});
+
+api(app);
+
 
 app.listen(port);
 console.log(`listening on port ${port}`);
