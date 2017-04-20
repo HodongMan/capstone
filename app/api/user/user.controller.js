@@ -38,6 +38,7 @@ export function create(req, res, next){
 }
 
 export function login(req, res, next){
+
     let {email, password } = req.body;
 
     User.findOne({

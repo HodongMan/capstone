@@ -96,7 +96,7 @@ UserSchema
 
 UserSchema.methods = {
   /**
-   * Authenticate - check if the passwords are the same
+   * Authenticate - password 체크
    *
    * @param {String} password
    * @param {Function} callback
@@ -123,7 +123,7 @@ UserSchema.methods = {
   },
 
   /**
-   * Make salt
+   * Make salt - db에 저장
    *
    * @param {Number} byteSize Optional salt byte size, default to 16
    * @param {Function} callback
