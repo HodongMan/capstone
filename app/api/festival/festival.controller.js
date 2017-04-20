@@ -5,7 +5,7 @@ import * as handle from '../handle';
 
 export function index(req, res, next){
 
-    return Festival.find({}).exec()
+    Festival.find({}).exec()
     .then((result) => {
         console.log(handle);
         res.status(200).json(result);

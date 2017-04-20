@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = {
+export default {
     url : 'mongodb://localhost/capstone',
     options : {
       server : {socketOptions : {keepAlive : 1, connectTimeoutMS : 30000}},
