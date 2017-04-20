@@ -2,7 +2,7 @@
 
 import mongoose from 'mongoose';
 import {Schema} from 'mongoose';
-import * as auth from '../../auth/auth';
+
 
 let FestivalSchema = new Schema({
 

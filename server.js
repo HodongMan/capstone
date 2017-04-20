@@ -3,18 +3,15 @@ import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
 import morgan from 'morgan';
 
+import config from './app/config/config';
 import api from './app/api';
 
 const app = express();
 const port = process.env.PORT || 3000;
 
-const options = {
-  server : {socketOptions : {keepAlive : 1, connectTimeoutMS : 30000}},
-  replset : {socketOptions : {keepAlive : 1, connectTimeoutMS : 30000}}
-};
 
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://localhost/capstone', options);
+mongoose.connect(config.url, config.options);
 
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, 'connection error : '));
