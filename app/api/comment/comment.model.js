@@ -3,16 +3,17 @@
 import mongoose from 'mongoose';
 import {Schema} from 'mongoose';
 
-let BoardSchema = new Schema({
 
-    type : {
+let CommentSchema = new Schema({
+
+    user : {
         type : String,
-        default : "",
+        required : true,
     },
 
-    tag : {
+    boardId : {
         type : String,
-        defaut : "",
+        required : true,
     },
 
     title : {
@@ -25,18 +26,11 @@ let BoardSchema = new Schema({
         required : true,
     },
 
-    user : {
-        type : String,
-        required : true,
-    },
-
     date : {
         type : Date,
-        default : Date.now,
-    },
-
-    img : [String],
+        default : Date.now
+    }
 
 });
 
-export default mongoose.model('Board', BoardSchema);
+export default mongoose.model("Comment", CommentSchema);

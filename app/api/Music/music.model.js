@@ -3,16 +3,11 @@
 import mongoose from 'mongoose';
 import {Schema} from 'mongoose';
 
-let BoardSchema = new Schema({
+let MusicSchema = new Schema({
 
-    type : {
+    user : {
         type : String,
-        default : "",
-    },
-
-    tag : {
-        type : String,
-        defaut : "",
+        required : true,
     },
 
     title : {
@@ -25,18 +20,12 @@ let BoardSchema = new Schema({
         required : true,
     },
 
-    user : {
+    singer : {
         type : String,
         required : true,
     },
-
-    date : {
-        type : Date,
-        default : Date.now,
-    },
-
-    img : [String],
-
+    
 });
 
-export default mongoose.model('Board', BoardSchema);
+
+export default mongoose.model("Music", MusicSchema);
