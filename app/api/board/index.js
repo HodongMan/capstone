@@ -13,4 +13,4 @@ router.post("/", controller.create);
 router.put("/:boardId", controller.update);
 router.delete("/:boardId", controller.destroy);
 
-module.exports = router;
+export default router;

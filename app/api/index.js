@@ -1,8 +1,12 @@
+import User from './user';
+import Board from './board';
+import Festival from './festival';
+
 export default function(app){
 
-    app.use("/api/user", require("./user"));
-    app.use("/api/board", require("./board"));
-    app.use("/api/festival", require("./festival"));
+    app.use("/api/user", User);
+    app.use("/api/board", Board);
+    app.use("/api/festival", Festival);
 
     app.route("*").get((req, res) => {
         res.status(200).send({
