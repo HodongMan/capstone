@@ -25,6 +25,19 @@ export function show(req, res, next){
 
 }
 
+export function update(req, res, next){
+
+    Festival.findById({_id : req.params.festivalId})
+    .then((festival) => {
+
+        Object.assign(festival, req.body).save()
+        .then(handle.handleSuccess(res))
+        .catch(handle.handleError(res));
+
+    })
+    .catch(handle.handleError(res));
+}
+
 
 export function create(req, res, next){
 

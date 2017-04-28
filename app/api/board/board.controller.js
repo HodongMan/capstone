@@ -34,6 +34,19 @@ export function create(req, res, next){
     .catch(handle.handleError(res));
 }
 
+export function update(req, res, next){
+
+    Board.findById({_id : req.params.boardId})
+    .then((board) => {
+
+        Object.assign(board, req.body).save()
+        .then(handle.handleSuccess(res))
+        .catch(handle.handleError(res));
+
+    })
+    .catch(handle.handleError(res));
+}
+
 
 export function destroy(req, res, next){
 

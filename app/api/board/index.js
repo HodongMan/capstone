@@ -10,6 +10,7 @@ const router = new Router();
 router.get("/", controller.index);
 router.get("/:boardId", controller.show);
 router.post("/", controller.create);
+router.put("/:boardId", controller.update);
 router.delete("/:boardId", controller.destroy);
 
 module.exports = router;
