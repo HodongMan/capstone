@@ -10,29 +10,29 @@ export function index(req, res, next){
         console.log(handle);
         res.status(200).json(result);
     })
-    .catch(handle.handleError);
+    .catch(handle.handleError(res));
 }
 
 export function show(req, res, next){
 
     let id = req.params.festivalId;
 
-    Festival.findOne({id})
+    Festival.findOne({_id : id})
     .then((board) => {
         res.status(200).json(board);
     })
-    .catch(handle.handleError);
+    .catch(handle.handleError(res));
 
 }
 
 
 export function create(req, res, next){
 
-    let newBoard = new Board(req.body);
+    let newFestival = new Festival(req.body);
 
-    newBoard.save()
-    .then(handle.handleSuccess)
-    .catch(handle.handleError);
+    newFestival.save()
+    .then(handle.handleSuccess(res))
+    .catch(handle.handleError(res));
 }
 
 
@@ -40,7 +40,7 @@ export function destroy(req, res, next){
 
     let id = req.params.festivalId
 
-    Festival.remove({id})
-    .then(handle.handleSuccess)
-    .catch(handle.handleError);
+    Festival.remove({_id : id})
+    .then(handle.handleSuccess(res))
+    .catch(handle.handleError(res));
 }

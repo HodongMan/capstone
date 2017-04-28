@@ -6,31 +6,32 @@ import * as handle from '../handle';
 
 export function index(req, res, next){
 
-    Board.find({{}).exec()
+    Board.find({}).exec()
     .then((board) => {
         res.status(200).json(board);
     })
-    .catch(handle.handleError)
+    .catch(handle.handleError(res))
 }
 
 export function show(req, res, next){
 
     let id = req.params.boardId;
 
-    Board.findOne({id})
+    Board.findOne({_id : id})
     .then((board) => {
         res.status(200).json(board);
     })
-    .catch(handle.handleError)
+    .catch(handle.handleError(res))
 }
 
 export function create(req, res, next){
 
+
     let newBoard = new Board(req.body);
 
     newBoard.save()
-    .then(handle.handleSuccess)
-    .catch(handle.handleError);
+    .then(handle.handleSuccess(res))
+    .catch(handle.handleError(res));
 }
 
 
@@ -38,7 +39,7 @@ export function destroy(req, res, next){
 
     let id = req.params.boardId;
 
-    Board.remove({id})
-    .then(handle.handleSuccess)
-    .catch(handle.handleError);
+    Board.remove({_id : id})
+    .then(handle.handleSuccess(res))
+    .catch(handle.handleError(res));
 }
