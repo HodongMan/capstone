@@ -1,11 +1,20 @@
 'use strict';
 
-import Festival from './festival.model';
+import Music from './music.model';
 import * as handle from '../handle';
 
 export function index(req, res, next){
 
-    Festival.find({}).exec()
+    Music.find({}).exec()
+    .then((result) => {
+        res.status(200).json(result);
+    })
+    .catch(handle.handleError(res));
+}
+
+export function user(req, res, next){
+
+    Music.find({}).exec()
     .then((result) => {
         res.status(200).json(result);
     })
@@ -14,11 +23,11 @@ export function index(req, res, next){
 
 export function show(req, res, next){
 
-    let id = req.params.festivalId;
+    let id = req.params.musicId;
 
-    Festival.findOne({_id : id})
-    .then((festival) => {
-        res.status(200).json(festival);
+    Music.findOne({_id : id})
+    .then((music) => {
+        res.status(200).json(music);
     })
     .catch(handle.handleError(res));
 
@@ -26,10 +35,10 @@ export function show(req, res, next){
 
 export function update(req, res, next){
 
-    Festival.findById({_id : req.params.festivalId})
-    .then((festival) => {
+    Music.findById({_id : req.params.musicId})
+    .then((music) => {
 
-        Object.assign(festival, req.body).save()
+        Object.assign(music, req.body).save()
         .then(handle.handleSuccess(res))
         .catch(handle.handleError(res));
 
@@ -40,9 +49,9 @@ export function update(req, res, next){
 
 export function create(req, res, next){
 
-    let newFestival = new Festival(req.body);
+    let newMusic = new Music(req.body);
 
-    newFestival.save()
+    newMusic.save()
     .then(handle.handleSuccess(res))
     .catch(handle.handleError(res));
 }
@@ -50,9 +59,9 @@ export function create(req, res, next){
 
 export function destroy(req, res, next){
 
-    let id = req.params.festivalId
+    let id = req.params.MusicId
 
-    Festival.remove({_id : id})
+    Music.remove({_id : id})
     .then(handle.handleSuccess(res))
     .catch(handle.handleError(res));
 }
