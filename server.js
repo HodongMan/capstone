@@ -2,6 +2,7 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
 import morgan from 'morgan';
+import path from 'path';
 
 import config from './app/config/config';
 import api from './app/api';
@@ -16,6 +17,7 @@ mongoose.connect(config.url, config.options);
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, 'connection error : '));
 
+app.use(express.static(path.join(__dirname, 'img')));
 app.use(bodyParser.urlencoded({extended : true}));
 app.use(bodyParser.json());
 app.use(morgan("dev"));

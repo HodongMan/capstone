@@ -2,6 +2,8 @@
 
 import Festival from './festival.model';
 import * as handle from '../handle';
+import path from 'path';
+import multer from 'multer';
 
 export function index(req, res, next){
 
@@ -56,3 +58,28 @@ export function destroy(req, res, next){
     .then(handle.handleSuccess(res))
     .catch(handle.handleError(res));
 }
+
+export function imgUpload(req, res, next){
+
+    upload(req, res, function(err){
+        if(err){
+            return res.json(err);
+        }
+        res.json({message : "upload"});
+    });
+}
+
+const storage = multer.diskStorage({
+
+    destination : function(req, file, callback){
+        console.log(path.normalize(__dirname + '/../../../img'));
+        callback(null, path.normalize(__dirname + '/../../../img'));
+    },
+
+    filename : function(req, file, callback){
+        Festival.findOne({_id : id});
+        callback(null, Date.now() + file.originalname);
+    }
+});
+
+const upload = multer({storage : storage}).single('UploadFile');

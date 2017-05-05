@@ -4,6 +4,10 @@ import compose from 'composable-middleware';
 
 import User from '../api/user/user.model';
 
+let validateJwt = expressJwt({
+    secret : 'hodong-secret'
+});
+
 export function isAuthenticated() {
   return compose()
     // Validate jwt
