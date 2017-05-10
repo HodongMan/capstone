@@ -6,7 +6,7 @@
   "license": "MIT",
   "scripts": {
     "api": "babel-node server.js",
-    "start": "node server.js --exec babel-node --presets es2015"
+    "start": "nodemon server.js --exec babel-node --presets es2015"
   },
   "dependencies": {
     "body-parser": "^1.17.1",

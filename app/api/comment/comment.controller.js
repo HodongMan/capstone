@@ -9,6 +9,11 @@ export function index(req, res, next){
 
     Comment.find({boardId}).exec()
     .then((result) => {
+
+        if(!result){
+            res.status(handle.handleError(res));
+        }
+
         res.status(200).json(result);
     })
     .catch(handle.handleError(res));
@@ -18,6 +23,10 @@ export function update(req, res, next){
 
     Comment.findById({_id : req.params.commentId})
     .then((comment) => {
+
+        if(!comment){
+            res.status(handle.handleError(res));
+        }
 
         Object.assign(comment, req.body).save()
         .then(handle.handleSuccess(res))

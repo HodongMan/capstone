@@ -9,6 +9,11 @@ export function index(req, res, next){
 
     Festival.find({}).exec()
     .then((result) => {
+
+        if(!result){
+            res.status(handle.handleError(res));
+        }
+
         res.status(200).json(result);
     })
     .catch(handle.handleError(res));
@@ -20,6 +25,11 @@ export function show(req, res, next){
 
     Festival.findOne({_id : id})
     .then((festival) => {
+
+        if(!festival){
+            res.status(handle.handleError(res));
+        }
+
         res.status(200).json(festival);
     })
     .catch(handle.handleError(res));
@@ -30,6 +40,12 @@ export function update(req, res, next){
 
     Festival.findById({_id : req.params.festivalId})
     .then((festival) => {
+
+
+        if(!festival){
+            res.status(handle.handleError(res));
+        }
+
 
         Object.assign(festival, req.body).save()
         .then(handle.handleSuccess(res))

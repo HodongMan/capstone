@@ -7,6 +7,11 @@ export function index(req, res, next){
 
     Music.find({}).exec()
     .then((result) => {
+
+        if(!result){
+            res.status(handle.handleError(res));
+
+        }
         res.status(200).json(result);
     })
     .catch(handle.handleError(res));
@@ -16,6 +21,11 @@ export function user(req, res, next){
 
     Music.find({}).exec()
     .then((result) => {
+
+        if(!result){
+            res.status(handle.handleError(res));
+        }
+
         res.status(200).json(result);
     })
     .catch(handle.handleError(res));
@@ -27,6 +37,11 @@ export function show(req, res, next){
 
     Music.findOne({_id : id})
     .then((music) => {
+
+        if(!music){
+            res.status(handle.handleError(res));
+        }
+
         res.status(200).json(music);
     })
     .catch(handle.handleError(res));
@@ -37,6 +52,10 @@ export function update(req, res, next){
 
     Music.findById({_id : req.params.musicId})
     .then((music) => {
+
+        if(!music){
+            res.status(handle.handleError(res));
+        }
 
         Object.assign(music, req.body).save()
         .then(handle.handleSuccess(res))

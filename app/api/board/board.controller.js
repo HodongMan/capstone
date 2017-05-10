@@ -8,6 +8,11 @@ export function index(req, res, next){
 
     Board.find({}).exec()
     .then((board) => {
+
+        if(!board){
+            res.status(handle.handleError(res));
+        }
+
         res.status(200).json(board);
     })
     .catch(handle.handleError(res))
@@ -19,9 +24,31 @@ export function show(req, res, next){
 
     Board.findOne({_id : id})
     .then((board) => {
+
+        if(!board){
+            res.status(handle.handleError(res));
+        }
+
         res.status(200).json(board);
     })
-    .catch(handle.handleError(res))
+    .catch(handle.handleError(res));
+}
+
+export function festival(req, res, next){
+
+    let type = req.params.fesitvalType;
+
+    Board.find({type : type})
+    .then((board) => {
+
+        if(!board){
+            res.status(handle.handleError(res));
+        }
+
+        res.status(200).json(board);
+    })
+    .catch(handle.handleError(res));
+
 }
 
 export function create(req, res, next){
