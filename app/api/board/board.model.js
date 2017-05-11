@@ -7,12 +7,12 @@ let BoardSchema = new Schema({
 
     type : {
         type : String,
-        default : "",
+        required : true,
     },
 
     tag : {
         type : String,
-        defaut : "",
+        required : true,
     },
 
     title : {

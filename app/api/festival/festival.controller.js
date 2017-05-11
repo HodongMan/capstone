@@ -76,13 +76,17 @@ export function destroy(req, res, next){
 }
 
 export function imgUpload(req, res, next){
+    console.log(path.normalize(__dirname + '/../../../img'));
 
+    /*
     upload(req, res, function(err){
         if(err){
             return res.json(err);
         }
         res.json({message : "upload"});
     });
+
+    */
 }
 
 const storage = multer.diskStorage({

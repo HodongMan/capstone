@@ -17,7 +17,7 @@ mongoose.connect(config.url, config.options);
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, 'connection error : '));
 
-app.use(express.static(path.join(__dirname, 'img')));
+app.use(express.static('img'));
 app.use(bodyParser.urlencoded({extended : true}));
 app.use(bodyParser.json());
 app.use(morgan("dev"));

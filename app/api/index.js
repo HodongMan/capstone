@@ -1,3 +1,6 @@
+import express from 'express';
+import path from 'path';
+
 import User from './user';
 import Board from './board';
 import Festival from './festival';
@@ -12,7 +15,8 @@ export default function(app){
     app.use("/api/comment", Comment);
     app.use("/api/music", Music);
 
-    
+
+
     app.route("*").get((req, res) => {
         res.status(200).send({
             message : "Server Started"
