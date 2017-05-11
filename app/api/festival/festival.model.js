@@ -33,7 +33,7 @@ let FestivalSchema = new Schema({
 
     user : String,
 
-    vedio : String,
+    vedio : [String],
 
     active : Boolean,
 
