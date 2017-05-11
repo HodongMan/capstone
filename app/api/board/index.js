@@ -9,7 +9,8 @@ const router = new Router();
 
 router.get("/", controller.index);
 router.get("/:boardId", controller.show);
-router.get("/festival/:fesitvalType", controller.festival);
+router.get("/festival/:fesitvalId", controller.festival);
+router.get("/festival/:fesitvalId/tag/:tagName", controller.festival);
 router.post("/", controller.create);
 router.put("/:boardId", controller.update);
 router.delete("/:boardId", controller.destroy);

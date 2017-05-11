@@ -16,7 +16,7 @@ let FestivalSchema = new Schema({
         required : true,
     },
 
-    img : String,
+    img : [String],
 
     icon : String,
 
@@ -25,7 +25,15 @@ let FestivalSchema = new Schema({
         default : Date.now
     },
 
+    startDate : String,
+
+    endDate : String,
+
+    location : String,
+
     user : String,
+
+    vedio : String,
 
     active : Boolean,
 

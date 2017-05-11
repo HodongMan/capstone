@@ -36,9 +36,9 @@ export function show(req, res, next){
 
 export function festival(req, res, next){
 
-    let type = req.params.fesitvalType;
+    let id = req.params.fesitvalId;
 
-    Board.find({type : type})
+    Board.find({type : id})
     .then((board) => {
 
         if(!board){
@@ -51,6 +51,27 @@ export function festival(req, res, next){
 
 }
 
+
+export function festivalAndTag(req, res, next){
+
+    let id = req.params.fesitvalId;
+    let tag = req.params.tag;
+
+    Board.find({
+        type : id,
+        tag : tag,
+    })
+    .then((board) => {
+
+        if(!board){
+            res.status(handle.handleError(res));
+        }
+
+        res.status(200).json(board);
+    })
+    .catch(handle.handleError(res));
+
+}
 export function create(req, res, next){
 
 
