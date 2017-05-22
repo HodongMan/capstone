@@ -58,7 +58,9 @@ export function update(req, res, next){
         }
 
         Object.assign(music, req.body).save()
-        .then(handle.handleSuccess(res))
+        .then((music) => {
+            res.status(202).json(music);
+        })
         .catch(handle.handleError(res));
 
     })

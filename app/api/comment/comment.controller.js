@@ -40,6 +40,7 @@ export function update(req, res, next){
 export function create(req, res, next){
 
     let newComment = new Comment(req.body);
+    newComment.boardId = req.params.boardId;
 
     newComment.save()
     .then(handle.handleSuccess(res))

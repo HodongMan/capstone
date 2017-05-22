@@ -78,7 +78,9 @@ export function create(req, res, next){
     let newBoard = new Board(req.body);
 
     newBoard.save()
-    .then(handle.handleSuccess(res))
+    .then((board) => {
+        res.status(202).json(board);
+    })
     .catch(handle.handleError(res));
 }
 

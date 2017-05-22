@@ -61,7 +61,9 @@ export function create(req, res, next){
     let newFestival = new Festival(req.body);
 
     newFestival.save()
-    .then(handle.handleSuccess(res))
+    .then((festival) => {
+        res.status(202).json(festival);
+    })
     .catch(handle.handleError(res));
 }
 
