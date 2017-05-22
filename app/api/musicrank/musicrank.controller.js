@@ -22,6 +22,7 @@ export function index (req, res, next){
             const parent = $('#body-content .list-wrap');
 
             for(let i = 1; i <= 10; i++){
+
                 const musicArea = parent.children('.rank-' + i).children('.music-info').children('.music_area').children('.music');
                 let title = musicArea.children('.title').html();
                 let artist = musicArea.children('.meta').children('.artist').html();
@@ -29,9 +30,6 @@ export function index (req, res, next){
 
                 console.log(title + ", " + artist);
             }
-
-
-
         }
     });
 
