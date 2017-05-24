@@ -32,7 +32,9 @@ export function create(req, res, next){
         let token = jwt.sign({_id : user._id, name : user.name}, 'hodong-secret', {
             expiresIn : 60 * 60 * 5
         });
-        res.json({token});
+        res.json({
+            token,
+        });
     })
     .catch(validationError(res));
 }
@@ -53,7 +55,9 @@ export function login(req, res, next){
                 let token = jwt.sign({_id : user._id, name : user.name}, 'hodong-secret', {
                     expiresIn : 60 * 60 * 5
                 });
-                res.json(token);
+                res.json({
+                    token,
+                });
             }else{
                 res.json({
                     statusCode : 0,

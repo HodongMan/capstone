@@ -16,20 +16,29 @@ export function index (req, res, next){
     request(url, (err, response, html) => {
 
         if(err){
-            console.log(err);
+            return res.status(402).json(err);
         }else{
             const $ = cheerio.load(html);
             const parent = $('#body-content .list-wrap');
+            let MusicList = [];
 
-            for(let i = 1; i <= 10; i++){
+            for(let i = 1; i <= 50; i++){
 
                 const musicArea = parent.children('.rank-' + i).children('.music-info').children('.music_area').children('.music');
                 let title = musicArea.children('.title').html();
                 let artist = musicArea.children('.meta').children('.artist').html();
                 let albumtitle = musicArea.children('.meta').children('.albumtitle').html();
 
-                console.log(title + ", " + artist);
+                let newData = {
+                    title,
+                    artist,
+                    albumtitle,
+                };
+
+                MusicList.push(newData);
             }
+
+            return res.status(202).json(MusicList);
         }
     });
 
