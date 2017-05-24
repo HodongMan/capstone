@@ -25,6 +25,7 @@ export function index (req, res, next){
             for(let i = 1; i <= 50; i++){
 
                 const musicArea = parent.children('.rank-' + i).children('.music-info').children('.music_area').children('.music');
+                let albumcover = "http:" + parent.children('.rank-' + i).children('.music-info').children('.album').children('a').children('img').attr("src");
                 let title = musicArea.children('.title').html();
                 let artist = musicArea.children('.meta').children('.artist').html();
                 let albumtitle = musicArea.children('.meta').children('.albumtitle').html();
@@ -33,8 +34,8 @@ export function index (req, res, next){
                     title,
                     artist,
                     albumtitle,
+                    albumcover,
                 };
-
                 MusicList.push(newData);
             }
 
