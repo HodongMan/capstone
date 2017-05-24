@@ -31,6 +31,7 @@ export function index (req, res, next){
                 let albumtitle = musicArea.children('.meta').children('.albumtitle').html();
 
                 let newData = {
+                    rank : String(i),
                     title,
                     artist,
                     albumtitle,
