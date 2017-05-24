@@ -39,7 +39,7 @@ export function update(req, res, next){
 export function user(req, res, next){
 
     let user = req.params.user;
-
+    
     Comment.find({
         user,
     })
