@@ -9,6 +9,7 @@ import * as auth from '../../auth/auth';
 const router = new Router();
 
 router.get("/:boardId", controller.index);
+router.get("/user/:user", controller.user);
 router.post("/:boardId", controller.create);
 router.put("/:commentId", controller.update);
 

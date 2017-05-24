@@ -72,6 +72,24 @@ export function festivalAndTag(req, res, next){
     .catch(handle.handleError(res));
 
 }
+
+export function user(req, res, next){
+
+    let user = req.params.user;
+
+    Board.find({
+        user,
+    })
+    .then((board) => {
+
+        if(!board){
+            res.status(handle.handleError(res));
+        }
+
+        res.status(202).json(board);
+    })
+    .catch(handle.handleError(res));
+}
 export function create(req, res, next){
 
 

@@ -36,6 +36,24 @@ export function update(req, res, next){
     .catch(handle.handleError(res));
 }
 
+export function user(req, res, next){
+
+    let user = req.params.user;
+
+    Comment.find({
+        user,
+    })
+    .then((comment) => {
+
+        if(!comment){
+            res.status(handle.handleError(res));
+        }
+
+        res.status(202).json(comment);
+    })
+    .catch(handle.handleError(res));
+}
+
 
 export function create(req, res, next){
 

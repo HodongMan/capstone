@@ -11,6 +11,7 @@ router.get("/", controller.index);
 router.get("/:boardId", controller.show);
 router.get("/festival/:fesitvalId", controller.festival);
 router.get("/festival/:fesitvalId/tag/:tagName", controller.festival);
+router.get("/user/:user", controller.user);
 router.post("/", controller.create);
 
 router.put("/:boardId", controller.update);
