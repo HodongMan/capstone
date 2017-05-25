@@ -9,7 +9,7 @@ import MusicRank from './musicrank.model';
 import * as handle from '../handle';
 
 
-export function index (req, res, next){
+export function update (req, res, next){
 
     let url = 'https://www.genie.co.kr/chart/genre?ditc=D&ymd=20170522&genrecode=E0000';
 
@@ -40,8 +40,18 @@ export function index (req, res, next){
                 MusicList.push(newData);
             }
 
-            return res.status(202).json(MusicList);
+            MusicRank.insertMany(MusicList)
+            .then((result) => res.status(202).json(result))
+            .catch(handle.handleError(res));
+
         }
     });
 
+}
+
+export function index(req, res, next){
+
+    MusicRank.find({})
+    .then((result) => res.status(202).json(result))
+    .catch(handle.handleError(res));
 }

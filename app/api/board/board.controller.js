@@ -6,7 +6,7 @@ import * as handle from '../handle';
 
 export function index(req, res, next){
 
-    Board.find({}).exec()
+    Board.find({}, null, {sort : '-date'}).exec()
     .then((board) => {
 
         if(!board){
@@ -38,7 +38,7 @@ export function festival(req, res, next){
 
     let id = req.params.fesitvalId;
 
-    Board.find({type : id})
+    Board.find({type : id}, null, {sort : '-date'})
     .then((board) => {
 
         if(!board){
@@ -60,7 +60,7 @@ export function festivalAndTag(req, res, next){
     Board.find({
         type : id,
         tag : tag,
-    })
+    }, null, {sort : '-date'})
     .then((board) => {
 
         if(!board){
@@ -79,7 +79,7 @@ export function user(req, res, next){
 
     Board.find({
         user,
-    })
+    }, null, {sort : '-date'})
     .then((board) => {
 
         if(!board){
@@ -94,6 +94,7 @@ export function create(req, res, next){
 
 
     let newBoard = new Board(req.body);
+    newBoard.user = req.user.name;
 
     newBoard.save()
     .then((board) => {
@@ -107,10 +108,12 @@ export function update(req, res, next){
     Board.findById({_id : req.params.boardId})
     .then((board) => {
 
-        Object.assign(board, req.body).save()
-        .then(handle.handleSuccess(res))
-        .catch(handle.handleError(res));
+        if(board.user === req.user.name){
 
+            Object.assign(board, req.body).save()
+            .then(handle.handleSuccess(res))
+            .catch(handle.handleError(res));
+        }
     })
     .catch(handle.handleError(res));
 }
@@ -119,8 +122,11 @@ export function update(req, res, next){
 export function destroy(req, res, next){
 
     let id = req.params.boardId;
-
-    Board.remove({_id : id})
+    let user = req.user.name
+    Board.remove({
+        _id : id,
+        user,
+    })
     .then(handle.handleSuccess(res))
     .catch(handle.handleError(res));
 }

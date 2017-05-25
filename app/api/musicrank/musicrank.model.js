@@ -20,10 +20,17 @@ let MusicRankSchema = new Schema({
         required : true,
     },
 
-    album : {
+    albumtitle : {
         type : String,
         required : true,
     },
+
+    albumcover : {
+        type : String,
+        required : true,
+    },
+
+    like : [String],
 
 });
 
