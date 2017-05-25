@@ -30,7 +30,10 @@ let MusicRankSchema = new Schema({
         required : true,
     },
 
-    like : [String],
+    like : [{
+        type : String,
+        unique : true,
+    }],
 
 });
 

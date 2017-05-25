@@ -40,8 +40,12 @@ export function update (req, res, next){
                 MusicList.push(newData);
             }
 
-            MusicRank.insertMany(MusicList)
-            .then((result) => res.status(202).json(result))
+            MusicRank.remove()
+            .then((result) => {
+                MusicRank.insertMany(MusicList)
+                .then((result) => res.status(202).json(result))
+                .catch(handle.handleError(res));
+            })
             .catch(handle.handleError(res));
 
         }
@@ -54,4 +58,35 @@ export function index(req, res, next){
     MusicRank.find({})
     .then((result) => res.status(202).json(result))
     .catch(handle.handleError(res));
+}
+
+export function like(req, res, next){
+
+    let id = req.params.musicrankId;
+    MusicRank.findById({_id : id})
+    .then((musicrank) => {
+
+        musicrank.like.push(req.user.name);
+
+        musicrank.save()
+        .then((result) => res.status(202).json(result))
+        .catch(handle.handleError(res));
+    })
+    .catch(handle.handleError(res));
+}
+
+export function my(req, res, next){
+
+    let user = req.user.name;
+
+    MusicRank.find({like : user}, null, {sort : '-date'}).exec()
+    .then((result) => {
+        if(!result){
+            return handle.handleError(res);
+        }
+
+        return res.status(202).json(result);
+    })
+    .catch(handle.handleError(res));
+
 }

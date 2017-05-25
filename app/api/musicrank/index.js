@@ -8,7 +8,8 @@ import * as auth from '../../auth/auth';
 const router = new Router();
 
 router.get("/", controller.index);
+router.get("/my", auth.isAuthenticated(), controller.my);
 router.post("/update", controller.update);
-//router.post('/like:musicrankId', controller.like);
+router.post('/like/:musicrankId', auth.isAuthenticated(), controller.like);
 
 export default router;
