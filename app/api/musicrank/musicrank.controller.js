@@ -9,6 +9,18 @@ import MusicRank from './musicrank.model';
 import * as handle from '../handle';
 
 
+function isLiked(name, List)
+{
+    let number = List.indexOf(name);
+
+    if(number > 0){
+        return true;
+    }else{
+        return false;
+    }
+}
+
+
 export function update (req, res, next){
 
     let url = 'https://www.genie.co.kr/chart/genre?ditc=D&ymd=20170522&genrecode=E0000';

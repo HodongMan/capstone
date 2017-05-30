@@ -8,10 +8,10 @@ import * as auth from '../../auth/auth';
 
 const router = new Router();
 
-router.get("/:boardId", controller.index);
-router.get("/user/:user", controller.user);
-router.post("/:boardId", controller.create);
-router.put("/:commentId", controller.update);
+router.get("/:boardId", auth.isAuthenticated(), controller.index);
+router.get("/user/:user", auth.isAuthenticated(), controller.user);
+router.post("/:boardId", auth.isAuthenticated(), controller.create);
+router.put("/:commentId", auth.isAuthenticated(), controller.update);
 
 router.delete("/:commentId", controller.destroy);
 

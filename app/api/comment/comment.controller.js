@@ -59,7 +59,7 @@ export function create(req, res, next){
 
     let newComment = new Comment(req.body);
     newComment.boardId = req.params.boardId;
-
+    newComment.user = req.user.name;
     newComment.save()
     .then(comment => res.status(202).json(comment))
     .catch(handle.handleError(res));
