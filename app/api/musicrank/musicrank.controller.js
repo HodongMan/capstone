@@ -9,14 +9,14 @@ import MusicRank from './musicrank.model';
 import * as handle from '../handle';
 
 
-function isLiked(name, List)
+function isLiked(name, listItem)
 {
-    let number = List.indexOf(name);
+    let number = listItem.indexOf(name);
 
-    if(number > 0){
-        return true;
+    if(number >= 0){
+        return 1;
     }else{
-        return false;
+        return 0;
     }
 }
 
@@ -68,7 +68,15 @@ export function update (req, res, next){
 export function index(req, res, next){
 
     MusicRank.find({})
-    .then((result) => res.status(202).json(result))
+    .then((result) => {
+
+        result.forEach((elem, index) => {
+            let like = isLiked(req.user.name, elem.like)
+            result[index].like = like;
+        });
+
+        res.status(202).json(result);
+    })
     .catch(handle.handleError(res));
 }
 

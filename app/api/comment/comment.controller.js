@@ -7,7 +7,7 @@ export function index(req, res, next){
 
     let boardId = req.params.boardId;
 
-    Comment.find({boardId}).exec()
+    Comment.find({boardId}, {}, null, {sort : 'date'}).exec()
     .then((result) => {
 
         if(!result){
