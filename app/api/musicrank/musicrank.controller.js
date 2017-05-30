@@ -80,6 +80,15 @@ export function index(req, res, next){
     .catch(handle.handleError(res));
 }
 
+export function test(req, res, next){
+
+    MusicRank.find({})
+    .then((result) => {
+        res.status(202).json(result);
+    })
+    .catch(handle.handleError(res));
+}
+
 export function like(req, res, next){
 
     let id = req.params.musicrankId;
@@ -109,4 +118,22 @@ export function my(req, res, next){
     })
     .catch(handle.handleError(res));
 
+}
+
+export function unlike(req, res, next){
+
+    let id = req.params.musicrankId;
+    MusicRank.findById({_id : id})
+    .then((musicrank) => {
+
+        let index = musicrank.like.indexOf(req.user.name);
+        musicrank.like.splice(index, 1);
+
+        console.log(musicrank);
+
+        musicrank.save()
+        .then((result) => res.status(202).json(result))
+        .catch(handle.handleError(res));
+    })
+    .catch(handle.handleError(res));
 }
