@@ -7,7 +7,7 @@ export function index(req, res, next){
 
     let boardId = req.params.boardId;
 
-    Comment.find({boardId}, {}, null, {sort : 'date'}).exec()
+    Comment.find({boardId}, null, {sort : 'date'}).exec()
     .then((result) => {
 
         if(!result){
@@ -59,7 +59,7 @@ export function create(req, res, next){
 
     let newComment = new Comment(req.body);
     newComment.boardId = req.params.boardId;
-    newComment.user = req.user.name;
+    newComment.user = req.user._id;
     newComment.save()
     .then(comment => res.status(202).json(comment))
     .catch(handle.handleError(res));
