@@ -65,6 +65,24 @@ export function update (req, res, next){
 
 }
 
+export function video(req, res, next){
+    let videoQuery = req.params.artist + req.params.title;
+    let newVideoQuery = videoQuery.split(" ").join("+");
+    let url = "https://www.googleapis.com/youtube/v3/search?key=AIzaSyA9ZLVAgLKnHP1281N9n_KtQhSRP-jTKe4&part=snippet&maxResults=1&q=" + newVideoQuery;
+
+    request(url, (err, response, html) => {
+
+        if(err){
+            return res.status(402).json(err);
+        }else{
+            let newJson = JSON.parse(html);
+            let videoId = newJson.items[0].id.videoId;
+
+            return res.status(202).json({videoId,});
+        }
+    });
+}
+
 export function index(req, res, next){
 
     MusicRank.find({})
