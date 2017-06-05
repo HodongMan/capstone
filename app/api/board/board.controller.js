@@ -177,12 +177,12 @@ export function image(req, res, next){
             return res.status(401).json({message : "Not user", statusCode : 0});
         }
 
-        board.image = fileNameList;
+        board.img = fileNameList;
 
         board.save()
         .then((board) => {
             res.status(202).json({
-                image : board.image,
+                img : board.img,
             });
         })
         .catch((error) => handle.handleError(res));
