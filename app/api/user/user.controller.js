@@ -1,4 +1,6 @@
 import jwt from 'jsonwebtoken';
+import multer from 'multer';
+import path from 'path';
 
 import User from './user.model';
 
@@ -22,6 +24,7 @@ function handleError(res, statusCode) {
     res.status(statusCode).send(err);
   };
 }
+
 
 export function create(req, res, next){
 
@@ -67,4 +70,62 @@ export function login(req, res, next){
 
         })
         .catch(loginError);
+}
+
+export function index(req, res, next){
+
+    User.findOne({
+        _id : req.params.userId,
+    })
+    .then((user) => {
+        if(!user){
+            return res.status(401).json({message : "not user", statusCode : 0});
+        }
+
+        res.status(202).json({
+            name : user.name,
+            img : user.img,
+        })
+    })
+    .catch(handleError(res));
+}
+
+const storage = multer.diskStorage({
+
+    destination : (req, file, cb) => {
+        cb(null, path.resolve(__dirname , '../../../img/profile'));
+    },
+    filename : (req, file, cb) => {
+        file.uploadedFile = {
+            name : req.user.name,
+            ext : file.mimetype.split('/')[1]
+        };
+
+        cb(null, file.uploadedFile.name + '.' + file.uploadedFile.ext);
+    },
+});
+
+export const upload = multer({storage,}).single('UploadFile');
+
+export function image(req, res, next){
+
+    let newFileName = req.file.filename;
+
+    User.findById({_id : req.user.id})
+    .then((user) => {
+        if(!user){
+            return res.status(401).json({message : "Not user", statusCode : 0});
+        }
+
+        user.image = newFileName;
+
+        user.save()
+        .then((user) => {
+            res.status(202).json({
+                image : user.image,
+            });
+        })
+        .catch((error) => handleError(res));
+    })
+    .catch(handleError(res));
 }

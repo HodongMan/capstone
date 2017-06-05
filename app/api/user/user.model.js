@@ -17,13 +17,17 @@ let UserSchema = new Schema({
         type : String,
         lowercase : true,
         required : true,
-        uniqure : true,
+        unique : true,
     },
     password : {
         type : String,
         required : true,
     },
     salt : String,
+    image : {
+        type : String,
+        default : "profile/profile.jpg",
+    }
 });
 
 //validation data
