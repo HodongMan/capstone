@@ -151,7 +151,7 @@ const storage = multer.diskStorage({
     },
     filename : (req, file, cb) => {
         file.uploadedFile = {
-            name : /*req.user.name*/ + Date.now(),
+            name : req.user.name + Date.now(),
             ext : file.mimetype.split('/')[1]
         };
 
@@ -185,8 +185,8 @@ export function image(req, res, next){
                 image : board.image,
             });
         })
-        .catch((error) => handleError(res));
+        .catch((error) => handle.handleError(res));
     })
-    .catch(handleError(res));
+    .catch(handle.handleError(res));
 
 }
