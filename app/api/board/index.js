@@ -15,6 +15,8 @@ router.get("/user/:user", auth.isAuthenticated(), controller.user);
 router.get("/search/:search", controller.search);
 
 router.post("/", auth.isAuthenticated(), controller.create);
+router.post("/image/:boardId", auth.isAuthenticated(), controller.upload ,controller.image);
+
 
 router.put("/:boardId", auth.isAuthenticated(), controller.update);
 router.delete("/:boardId", auth.isAuthenticated(), controller.destroy);

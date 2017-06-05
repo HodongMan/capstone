@@ -2,6 +2,9 @@
 
 import Board from './board.model';
 import * as handle from '../handle';
+import multer from 'multer';
+import path from 'path';
+
 
 export function index(req, res, next){
 
@@ -137,5 +140,53 @@ export function search(req, res, next){
     Board.find({$text : {$search : searchText}}).exec()
     .then((result) => res.status(202).json(result))
     .catch(handle.handleError(res));
+
+}
+
+
+const storage = multer.diskStorage({
+
+    destination : (req, file, cb) => {
+        cb(null, path.resolve(__dirname , '../../../img/'));
+    },
+    filename : (req, file, cb) => {
+        file.uploadedFile = {
+            name : /*req.user.name*/ + Date.now(),
+            ext : file.mimetype.split('/')[1]
+        };
+
+        cb(null, file.uploadedFile.name + '.' + file.uploadedFile.ext);
+    },
+});
+
+export const upload = multer({storage,}).array('UploadFile');
+
+export function image(req, res, next){
+    let newFileName = "http://ec2-52-79-215-229.ap-northeast-2.compute.amazonaws.com/";
+
+    let fileNameList = [];
+
+    req.files.forEach((item, index) => {
+
+        fileNameList.push(newFileName + item.filename);
+    });
+
+    Board.findById({_id : req.params.boardId})
+    .then((board) => {
+        if(!board){
+            return res.status(401).json({message : "Not user", statusCode : 0});
+        }
+
+        board.image = fileNameList;
+
+        board.save()
+        .then((board) => {
+            res.status(202).json({
+                image : board.image,
+            });
+        })
+        .catch((error) => handleError(res));
+    })
+    .catch(handleError(res));
 
 }
