@@ -39,4 +39,5 @@ let BoardSchema = new Schema({
 
 });
 
+
 export default mongoose.model('Board', BoardSchema);

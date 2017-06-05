@@ -3,7 +3,6 @@
 import Board from './board.model';
 import * as handle from '../handle';
 
-
 export function index(req, res, next){
 
     Board.find({}, null, {sort : '-date'}).exec()
@@ -129,4 +128,14 @@ export function destroy(req, res, next){
     })
     .then(handle.handleSuccess(res))
     .catch(handle.handleError(res));
+}
+
+export function search(req, res, next){
+
+    let searchText = req.params.search;
+
+    Board.find({$text : {$search : searchText}}).exec()
+    .then((result) => res.status(202).json(result))
+    .catch(handle.handleError(res));
+
 }

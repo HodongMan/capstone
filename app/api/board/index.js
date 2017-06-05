@@ -7,11 +7,13 @@ import * as auth from '../../auth/auth';
 
 const router = new Router();
 
-router.get("/", auth.isAuthenticated(), controller.index);
+router.get("/", controller.index);
 router.get("/:boardId", auth.isAuthenticated(), controller.show);
 router.get("/festival/:fesitvalId", auth.isAuthenticated(), controller.festival);
 router.get("/festival/:fesitvalId/tag/:tagName", auth.isAuthenticated(), controller.festival);
 router.get("/user/:user", auth.isAuthenticated(), controller.user);
+router.get("/search/:search", controller.search);
+
 router.post("/", auth.isAuthenticated(), controller.create);
 
 router.put("/:boardId", auth.isAuthenticated(), controller.update);
