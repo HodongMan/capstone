@@ -109,7 +109,7 @@ export const upload = multer({storage,}).single('UploadFile');
 
 export function image(req, res, next){
 
-    let newFileName = req.file.filename;
+    let newFileName = "http://ec2-52-79-215-229.ap-northeast-2.compute.amazonaws.com/" + req.file.filename;
 
     User.findById({_id : req.user.id})
     .then((user) => {
