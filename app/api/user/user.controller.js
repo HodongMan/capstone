@@ -111,7 +111,7 @@ export function image(req, res, next){
 
     let newFileName = "http://ec2-52-79-215-229.ap-northeast-2.compute.amazonaws.com/" + req.file.filename;
 
-    User.findById({_id : req.user.id})
+    User.findById({_id : req.user._id})
     .then((user) => {
         if(!user){
             return res.status(401).json({message : "Not user", statusCode : 0});
@@ -128,4 +128,21 @@ export function image(req, res, next){
         .catch((error) => handleError(res));
     })
     .catch(handleError(res));
+}
+
+export function me(req, res, next){
+
+    User.findById({_id : req.user._id})
+    .then((user) => {
+        if(!user){
+            return res.status(401).json({message : "Not user", statusCode : 0});
+        }
+
+        res.status(202).json({
+            name : user.name,
+            image : user.image,
+        });
+    })
+    .catch(handleError(res));
+    
 }

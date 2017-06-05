@@ -7,6 +7,7 @@ import * as auth from '../../auth/auth';
 
 const router = new Router();
 
+router.get("/me", auth.isAuthenticated(), controller.me);
 router.get("/:userId", auth.isAuthenticated(), controller.index);
 
 router.post("/", controller.create);
