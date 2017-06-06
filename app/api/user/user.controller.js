@@ -84,7 +84,7 @@ export function index(req, res, next){
 
         res.status(202).json({
             name : user.name,
-            img : user.img,
+            image : user.image,
         })
     })
     .catch(handleError(res));
