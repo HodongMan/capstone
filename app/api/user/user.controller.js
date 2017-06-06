@@ -146,3 +146,22 @@ export function me(req, res, next){
     .catch(handleError(res));
 
 }
+
+
+export function user(req, res, next){
+
+    User.findOne({
+        name : req.params.username,
+    })
+    .then((user) => {
+        if(!user){
+            return res.status(401).json(handleError(res));
+        }
+        return res.status(202).json({
+            image : user.image,
+            _id : user._id,
+            name : user.name,
+        });
+    })
+    .catch(handleError(res));
+}
