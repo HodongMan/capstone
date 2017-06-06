@@ -9,7 +9,7 @@ const router = new Router();
 
 router.get("/me", auth.isAuthenticated(), controller.me);
 router.get("/:userId", auth.isAuthenticated(), controller.index);
-router.get("/username/:username", controller.user);
+router.get("/username/:username", auth.isAuthenticated(), controller.user);
 
 
 router.post("/", controller.create);
