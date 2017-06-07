@@ -138,6 +138,22 @@ export function my(req, res, next){
 
 }
 
+export function likeMusic(req, res, next){
+
+    let user = req.params.name;
+
+    MusicRank.find({like : user}, null, {sort : '-date'}).exec()
+    .then((result) => {
+        if(!result){
+            return handle.handleError(res);
+        }
+
+        return res.status(202).json(result);
+    })
+    .catch(handle.handleError(res));
+
+}
+
 export function unlike(req, res, next){
 
     let id = req.params.musicrankId;
