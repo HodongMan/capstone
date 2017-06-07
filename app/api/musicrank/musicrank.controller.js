@@ -85,7 +85,7 @@ export function video(req, res, next){
 
 export function videoSearch(req, res, next){
     let videoQuery = req.params.search;
-    let url = "https://www.googleapis.com/youtube/v3/search?key=AIzaSyA9ZLVAgLKnHP1281N9n_KtQhSRP-jTKe4&part=snippet&maxResults=1&q=" + videoQuery;
+    let url = "https://www.googleapis.com/youtube/v3/search?key=AIzaSyA9ZLVAgLKnHP1281N9n_KtQhSRP-jTKe4&part=snippet&maxResults=5&q=" + videoQuery;
 
     request(url, (err, response, html) => {
 
