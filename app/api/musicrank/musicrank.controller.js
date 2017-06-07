@@ -98,7 +98,7 @@ export function videoSearch(req, res, next){
             let videoThumbnail = newJson.items[0].snippet.thumbnails.default.url;
 
             res.status(202).json({
-                id : videoId,
+                videoId : videoId,
                 title : videoTitle,
                 thumbnail : videoThumbnail,
             });
