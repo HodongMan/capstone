@@ -93,15 +93,23 @@ export function videoSearch(req, res, next){
             return res.status(402).json(err);
         }else{
             let newJson = JSON.parse(html);
-            let videoId = newJson.items[0].id.videoId;
-            let videoTitle = newJson.items[0].snippet.title;
-            let videoThumbnail = newJson.items[0].snippet.thumbnails.default.url;
+            let searchResult = [];
 
-            res.status(202).json({
-                videoId : videoId,
-                title : videoTitle,
-                thumbnail : videoThumbnail,
-            });
+            newJson.items.forEach((item, index) => {
+
+                let videoId = item.id.videoId;
+                let videoTitle = item.snippet.title;
+                let videoThumbnail = item.snippet.thumbnails.default.url;
+
+                let searchResultOne = {
+                    videoId,
+                    title : videoTitle,
+                    thumbnail : videoThumbnail,
+                }
+                searchResult.push(searchResultOne);
+            })
+
+            res.status(202).json(searchResult);
         }
     });
 }
