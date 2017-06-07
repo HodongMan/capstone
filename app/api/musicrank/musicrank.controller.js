@@ -83,6 +83,29 @@ export function video(req, res, next){
     });
 }
 
+export function videoSearch(req, res, next){
+    let videoQuery = req.params.search;
+    let url = "https://www.googleapis.com/youtube/v3/search?key=AIzaSyA9ZLVAgLKnHP1281N9n_KtQhSRP-jTKe4&part=snippet&maxResults=1&q=" + videoQuery;
+
+    request(url, (err, response, html) => {
+
+        if(err){
+            return res.status(402).json(err);
+        }else{
+            let newJson = JSON.parse(html);
+            let videoId = newJson.items[0].id.videoId;
+            let videoUrl = newJson.items[0].snippet.title;
+            let videoThumbnail = newJson.items[0].snippet.thumbnails.default.url;
+
+            res.status(202).json({
+                id : videoId,
+                url : videoUrl,
+                thumbnail : videoThumbnail,
+            });
+        }
+    });
+}
+
 export function index(req, res, next){
 
     MusicRank.find({})

@@ -11,8 +11,8 @@ router.get("/", auth.isAuthenticated(), controller.index);
 router.get("/test", auth.isAuthenticated(), controller.test);
 router.get("/my", auth.isAuthenticated(), controller.my);
 router.get("/like/:name", auth.isAuthenticated(), controller.likeMusic);
-
 router.get("/video/:artist/:title", controller.video);
+router.get("/videosearch/:search", controller.videoSearch);
 
 router.post("/update", controller.update);
 router.post('/like/:musicrankId', auth.isAuthenticated(), controller.like);
