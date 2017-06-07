@@ -94,12 +94,12 @@ export function videoSearch(req, res, next){
         }else{
             let newJson = JSON.parse(html);
             let videoId = newJson.items[0].id.videoId;
-            let videoUrl = newJson.items[0].snippet.title;
+            let videoTitle = newJson.items[0].snippet.title;
             let videoThumbnail = newJson.items[0].snippet.thumbnails.default.url;
 
             res.status(202).json({
                 id : videoId,
-                url : videoUrl,
+                title : videoTitle,
                 thumbnail : videoThumbnail,
             });
         }
