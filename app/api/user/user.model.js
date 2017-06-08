@@ -33,7 +33,10 @@ let UserSchema = new Schema({
     like : [{
         _id : String,
         __v : Number,
-        videoId : String,
+        videoId : {
+            type : String,
+            required : true,
+        }
         thumbnail : String,
         title : String,
         viewCount : Number,

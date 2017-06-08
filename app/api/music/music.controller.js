@@ -1,5 +1,7 @@
 'use strict';
 
+import request from 'request';
+
 import Music from './music.model';
 import * as handle from '../handle';
 
