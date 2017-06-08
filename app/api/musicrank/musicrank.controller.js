@@ -97,7 +97,7 @@ export function video(req, res, next){
                 res.status(202).json(searchResult);
 
             })
-            .catch(handleError(res));
+            .catch(handle.handleError(res));
         }
     });
 }
@@ -145,7 +145,7 @@ export function videoSearch(req, res, next){
                 res.status(202).json(searchResult);
 
             })
-            .catch(handleError(res));
+            .catch(handle.handleError(res));
         }
     });
 }
