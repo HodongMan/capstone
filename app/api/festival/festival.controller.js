@@ -7,7 +7,7 @@ import multer from 'multer';
 
 export function index(req, res, next){
 
-    Festival.find({}).exec()
+    Festival.find({}, null, {sort : '-date'}).exec()
     .then((result) => {
 
         if(!result){
