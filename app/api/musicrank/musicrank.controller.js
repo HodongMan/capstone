@@ -11,7 +11,7 @@ import * as handle from '../handle';
 
 export function update (req, res, next){
 
-    let url = 'https://www.genie.co.kr/chart/genre?ditc=D&ymd=20170522&genrecode=E0000';
+    let url = 'https://www.genie.co.kr/chart/genre?ditc=D&ymd=20170608&genrecode=E0000';
 
     request(url, (err, response, html) => {
 
@@ -21,6 +21,7 @@ export function update (req, res, next){
             const $ = cheerio.load(html);
             const parent = $('#body-content .list-wrap');
             let MusicList = [];
+
 
             for(let i = 1; i <= 50; i++){
 
@@ -32,8 +33,8 @@ export function update (req, res, next){
 
                 let newData = {
                     rank : String(i),
-                    title,
-                    artist,
+                    title : title.replace(/&#?[a-z0-9]+;/g, ""),
+                    artist : artist.replace("&amp;", ''),
                     albumtitle,
                     albumcover,
                 };

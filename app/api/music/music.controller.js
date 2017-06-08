@@ -57,39 +57,16 @@ export function destroy(req, res, next){
 }
 
 export function videoSearch(req, res, next){
+
     let videoId = req.params.videoId;
     let url = "https://www.googleapis.com/youtube/v3/videos?id=" + videoId + "&key=AIzaSyA9ZLVAgLKnHP1281N9n_KtQhSRP-jTKe4%20&fields=items(id,snippet(title,thumbnails),statistics)&part=snippet,statistics";
-    //
 
-    let title = "bbbasdsa";
-    let thumbnail = "bcddcsadsa";
-    let viewCount = 12345;
-    let likeCount = 45232;
-
-    let newMusic = new Music({
-        videoId,
-        title,
-        thumbnail,
-        viewCount,
-        likeCount,
-    });
-
-    Music.findOneAndUpdate(
-        {
-            videoId : videoId,
-        }, // find a document with that filter
-        newMusic, // document to insert when nothing was found
-        {upsert: true, new: true, runValidators: true
-    }).exec() // options
-    .then((result) => res.status(202).json(result))
-    .catch(handle.handleError(res));
-
-    /*
     request(url, (err, response, html) => {
 
         if(err){
             return res.status(402).json(err);
         }else{
+
             let newJson = JSON.parse(html);
             let videoId = newJson.items[0].id;
             let title = newJson.items[0].snippet.itle;
@@ -97,13 +74,13 @@ export function videoSearch(req, res, next){
             let viewCount = newJson.items[0].statistics.viewCount;
             let likeCount = newJson.items[0].statistics.viewCount;
 
-            let newMusic = new Music({
+            let newMusic = {
                 videoId,
                 title,
                 thumbnail,
                 viewCount,
                 likeCount,
-            });
+            };
 
             newMusic.findOneAndUpdate(
                 {videoId,}, // find a document with that filter
@@ -114,5 +91,5 @@ export function videoSearch(req, res, next){
             .catch(handle.handleError(res));
         }
     });
-    */
+
 }

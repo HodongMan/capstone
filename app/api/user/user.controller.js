@@ -3,6 +3,7 @@ import multer from 'multer';
 import path from 'path';
 
 import User from './user.model';
+import Music from '../music/music.model';
 
 function validationError(res, statusCode) {
   statusCode = statusCode || 422;
@@ -162,6 +163,42 @@ export function user(req, res, next){
             _id : user._id,
             name : user.name,
         });
+    })
+    .catch(handleError(res));
+}
+
+export function like(req, res, next){
+
+    let videoId = req.params.videoId;
+
+
+    User.findById({_id : req.user.id})
+    .then((user) => {
+
+        Music.findOne({videoId,})
+        .then((music) => {
+
+            if(!music){
+                return handleError(res);
+            }
+            user.like.push(music);
+
+            user.save()
+            .then((result) => res.status(202).json(result))
+            .catch(handleError(res));
+
+        })
+        .catch(handleError(res));
+
+    })
+    .catch(handleError(res));
+}
+
+export function music(req, res, next){
+
+    User.findById({_id : req.user.id})
+    .then((user) => {
+        res.status(202).json(user.like);
     })
     .catch(handleError(res));
 }

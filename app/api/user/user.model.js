@@ -4,6 +4,7 @@ import crypto from 'crypto';
 import mongoose from 'mongoose';
 import {Schema} from 'mongoose';
 
+import Music from '../music/music.model';
 
 //schema 정보
 let UserSchema = new Schema({
@@ -27,7 +28,17 @@ let UserSchema = new Schema({
     image : {
         type : String,
         default : "profile/profile.jpg",
-    }
+    },
+
+    like : [{
+        _id : String,
+        __v : Number,
+        videoId : String,
+        thumbnail : String,
+        title : String,
+        viewCount : Number,
+        likeCount : Number,
+    }]
 });
 
 //validation data
