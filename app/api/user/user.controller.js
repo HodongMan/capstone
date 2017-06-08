@@ -81,9 +81,7 @@ export function otherMusic(req, res, next){
         if(!user){
             return res.status(401).json(handleError(res));
         }
-        return res.status(202).json({
-            music : user.like.reverse(),
-        });
+        return res.status(202).json(user.like.reverse());
     })
     .catch(handleError(res));
 }
