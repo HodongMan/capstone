@@ -8,8 +8,9 @@ import * as auth from '../../auth/auth';
 const router = new Router();
 
 router.get("/", controller.index);
-router.get("/video/:artist/:title", controller.video);
-router.get("/videosearch/:search", controller.videoSearch);
+
+router.get("/video/:artist/:title", auth.isAuthenticated(), controller.video);
+router.get("/videosearch/:search", auth.isAuthenticated(), controller.videoSearch);
 
 router.post("/update", controller.update);
 

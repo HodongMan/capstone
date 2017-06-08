@@ -64,25 +64,40 @@ export function video(req, res, next){
         if(err){
             return res.status(402).json(err);
         }else{
-
             let newJson = JSON.parse(html);
             console.log(newJson);
             let searchResult = [];
 
-            newJson.items.forEach((item, index) => {
+            User.findById({_id : req.user.id})
+            .then((user) => {
 
-                let videoId = item.id.videoId;
-                let videoTitle = item.snippet.title;
-                let videoThumbnail = item.snippet.thumbnails.default.url;
-                let searchResultOne = {
-                    videoId,
-                    title : videoTitle,
-                    thumbnail : videoThumbnail,
-                }
-                searchResult.push(searchResultOne);
+                let likeList = Object.assign({}, user.like);
+
+                newJson.items.forEach((item, index) => {
+
+                    let videoId = item.id.videoId;
+                    let videoTitle = item.snippet.title;
+                    let videoThumbnail = item.snippet.thumbnails.default.url;
+                    let isLiked = 0;
+                    likeList.forEach((item, index) => {
+                        if(item.videoId === videoId){
+                            isLiked = 1;
+                        }
+                    });
+
+                    let searchResultOne = {
+                        videoId,
+                        title : videoTitle,
+                        thumbnail : videoThumbnail,
+                        isLiked,
+                    }
+                    searchResult.push(searchResultOne);
+                })
+
+                res.status(202).json(searchResult);
+
             })
-
-            res.status(202).json(searchResult);
+            .catch(handleError(res));
         }
     });
 }
@@ -96,25 +111,41 @@ export function videoSearch(req, res, next){
         if(err){
             return res.status(402).json(err);
         }else{
+
             let newJson = JSON.parse(html);
             console.log(newJson);
             let searchResult = [];
 
-            newJson.items.forEach((item, index) => {
+            User.findById({_id : req.user.id})
+            .then((user) => {
 
-                let videoId = item.id.videoId;
-                let videoTitle = item.snippet.title;
-                let videoThumbnail = item.snippet.thumbnails.default.url;
+                let likeList = Object.assign({}, user.like);
 
-                let searchResultOne = {
-                    videoId,
-                    title : videoTitle,
-                    thumbnail : videoThumbnail,
-                }
-                searchResult.push(searchResultOne);
+                newJson.items.forEach((item, index) => {
+
+                    let videoId = item.id.videoId;
+                    let videoTitle = item.snippet.title;
+                    let videoThumbnail = item.snippet.thumbnails.default.url;
+                    let isLiked = 0;
+                    likeList.forEach((item, index) => {
+                        if(item.videoId === videoId){
+                            isLiked = 1;
+                        }
+                    });
+
+                    let searchResultOne = {
+                        videoId,
+                        title : videoTitle,
+                        thumbnail : videoThumbnail,
+                        isLiked,
+                    }
+                    searchResult.push(searchResultOne);
+                })
+
+                res.status(202).json(searchResult);
+
             })
-
-            res.status(202).json(searchResult);
+            .catch(handleError(res));
         }
     });
 }
