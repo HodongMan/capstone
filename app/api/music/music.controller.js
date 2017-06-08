@@ -7,7 +7,7 @@ import * as handle from '../handle';
 
 export function index(req, res, next){
 
-    Music.find({}).exec()
+    Music.find({}, null, {sort : '-likeCount'}).exec()
     .then((result) => {
 
         if(!result){

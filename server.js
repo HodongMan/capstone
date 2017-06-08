@@ -18,7 +18,7 @@ const db = mongoose.connection;
 db.on("error", console.error.bind(console, 'connection error : '));
 
 app.use(express.static('img'));
-app.use(bodyParser.urlencoded({extended : true}));
+app.use(bodyParser.urlencoded({limit : '15mb', extended : true}));
 app.use(bodyParser.json());
 app.use(morgan("dev"));
 
