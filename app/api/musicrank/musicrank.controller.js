@@ -97,7 +97,7 @@ export function video(req, res, next){
                 })
 
                 res.status(202).json(searchResult);
-            
+
             })
             .catch(handle.handleError(res));
         }
@@ -107,15 +107,22 @@ export function video(req, res, next){
 export function videoSearch(req, res, next){
     let videoQuery = req.params.search;
     let url = "https://www.googleapis.com/youtube/v3/search?key=AIzaSyA9ZLVAgLKnHP1281N9n_KtQhSRP-jTKe4&part=snippet&maxResults=10&q=" + videoQuery;
-
+    console.log(url);
     request(url, (err, response, html) => {
 
         if(err){
             return res.status(402).json(err);
         }else{
 
+            console.log(html);
+            if(typeof(html) === 'undefined' || !newJson){
+                return res.status(402).json(handle.handleError(res));
+            }
+
             let newJson = JSON.parse(html);
             let searchResult = [];
+
+
 
             User.findById({_id : req.user._id})
             .then((user) => {
@@ -149,7 +156,7 @@ export function videoSearch(req, res, next){
                 res.status(202).json(searchResult);
 
             })
-            .catch(handle.handleError(res));
+            .catch((error) => console.log(error));
 
         }
     });

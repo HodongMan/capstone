@@ -7,6 +7,7 @@ import * as auth from '../../auth/auth';
 
 const router = new Router();
 
+router.get("/", controller.all);
 router.get("/me", auth.isAuthenticated(), controller.me);
 router.get("/music", auth.isAuthenticated(), controller.music);
 

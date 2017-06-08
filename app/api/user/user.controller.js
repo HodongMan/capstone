@@ -26,6 +26,35 @@ function handleError(res, statusCode) {
   };
 }
 
+export function all(req, res, next){
+
+    User.find({}, null, {sort : 'date'}).exec()
+    .then((result) => {
+        let newStaticData = [];
+
+        result.forEach((user, index) => {
+            let username = user.name;
+
+
+            user.like.forEach((item, index) => {
+                if(item == null){
+                    return;
+                }else{
+                    newStaticData.push({
+                        name : username,
+                        videoId : item.videoId,
+                        score : 1,
+                    });
+                }
+            });
+
+        });
+
+        return res.status(202).json(newStaticData);
+    })
+    .catch(handleError(res));
+}
+
 
 export function create(req, res, next){
 
