@@ -37,6 +37,11 @@ let BoardSchema = new Schema({
 
     img : [String],
 
+    viewCount : {
+        type : Number,
+        default : 0,
+    },
+
 });
 
 

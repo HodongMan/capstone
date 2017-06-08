@@ -1,9 +1,10 @@
 'use strict';
 
-import Board from './board.model';
-import * as handle from '../handle';
 import multer from 'multer';
 import path from 'path';
+
+import Board from './board.model';
+import * as handle from '../handle';
 
 
 export function index(req, res, next){
@@ -20,6 +21,14 @@ export function index(req, res, next){
     .catch(handle.handleError(res))
 }
 
+export function hot(req, res, next){
+
+    Board.find({}, null, {sort : '-viewCount'}).limit(10).exec()
+    .then(board => res.status(202).json(board))
+    .catch(handle.handleError(res));
+
+}
+
 export function show(req, res, next){
 
     let id = req.params.boardId;
@@ -31,7 +40,11 @@ export function show(req, res, next){
             res.status(handle.handleError(res));
         }
 
-        res.status(200).json(board);
+        board.viewCount += 1
+
+        board.save()
+        .then((result) => res.status(202).json(result))
+        .catch(handle.handleError(res));
     })
     .catch(handle.handleError(res));
 }
