@@ -5,9 +5,11 @@ import {Schema} from 'mongoose';
 
 let MusicSchema = new Schema({
 
-    user : {
+
+    videoId : {
         type : String,
         required : true,
+        unique : true,
     },
 
     title : {
@@ -15,16 +17,20 @@ let MusicSchema = new Schema({
         required : true,
     },
 
-    content : {
+    thumbnail : {
         type : String,
         required : true,
     },
 
-    singer : {
-        type : String,
+    viewCount : {
+        type : Number,
         required : true,
     },
-    
+
+    likeCount : {
+        type : Number,
+        required : true,
+    },
 });
 
 
