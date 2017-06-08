@@ -31,11 +31,14 @@ let UserSchema = new Schema({
     },
 
     like : [{
-        _id : String,
+        _id : {
+            type : String,
+            unqiue : true,
+        },
         __v : Number,
         videoId : {
             type : String,
-            required : true,
+            unique : true,
         },
         thumbnail : String,
         title : String,

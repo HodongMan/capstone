@@ -3,20 +3,33 @@
 import request from 'request';
 
 import Music from './music.model';
+import User from '../user/user.model';
 import * as handle from '../handle';
 
 export function index(req, res, next){
 
-    Music.find({}, null, {sort : '-likeCount'}).exec()
-    .then((result) => {
-
-        if(!result){
-            res.status(handle.handleError(res));
-
+    User.findById({_id : req.user._id})
+    .then((user) => {
+        if(!user){
+            return res.status(401).json({message : "Not user", statusCode : 0});
         }
-        res.status(200).json(result);
+
+
+        Music.find({}, null, {sort : '-likeCount'}).exec()
+        .then((result) => {
+
+            if(!result){
+                res.status(handle.handleError(res));
+
+            }
+            result = result.filter((val) => !user.like.includes(val));
+            res.status(200).json(result);
+        })
+        .catch(handle.handleError(res));
+
     })
     .catch(handle.handleError(res));
+
 }
 
 export function update(req, res, next){
