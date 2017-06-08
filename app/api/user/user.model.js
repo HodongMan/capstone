@@ -36,7 +36,7 @@ let UserSchema = new Schema({
         videoId : {
             type : String,
             required : true,
-        }
+        },
         thumbnail : String,
         title : String,
         viewCount : Number,
