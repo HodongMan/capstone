@@ -71,15 +71,17 @@ export function video(req, res, next){
             User.findById({_id : req.user.id})
             .then((user) => {
 
-                let likeList = Object.assign({}, user.like);
-
                 newJson.items.forEach((item, index) => {
 
                     let videoId = item.id.videoId;
                     let videoTitle = item.snippet.title;
                     let videoThumbnail = item.snippet.thumbnails.default.url;
                     let isLiked = 0;
-                    likeList.forEach((item, index) => {
+                    user.like.forEach((item, index) => {
+                        if(item === null){
+                            return;
+                        }
+
                         if(item.videoId === videoId){
                             isLiked = 1;
                         }
@@ -95,7 +97,7 @@ export function video(req, res, next){
                 })
 
                 res.status(202).json(searchResult);
-
+            
             })
             .catch(handle.handleError(res));
         }
@@ -113,13 +115,11 @@ export function videoSearch(req, res, next){
         }else{
 
             let newJson = JSON.parse(html);
-            console.log(newJson);
             let searchResult = [];
 
-            User.findById({_id : req.user.id})
+            User.findById({_id : req.user._id})
             .then((user) => {
 
-                let likeList = Object.assign({}, user.like);
 
                 newJson.items.forEach((item, index) => {
 
@@ -127,7 +127,11 @@ export function videoSearch(req, res, next){
                     let videoTitle = item.snippet.title;
                     let videoThumbnail = item.snippet.thumbnails.default.url;
                     let isLiked = 0;
-                    likeList.forEach((item, index) => {
+                    user.like.forEach((item, index) => {
+                        if(item === null){
+                            return;
+                        }
+
                         if(item.videoId === videoId){
                             isLiked = 1;
                         }
@@ -146,6 +150,7 @@ export function videoSearch(req, res, next){
 
             })
             .catch(handle.handleError(res));
+
         }
     });
 }
