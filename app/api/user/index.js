@@ -12,6 +12,8 @@ router.get("/music", auth.isAuthenticated(), controller.music);
 
 router.get("/:userId", auth.isAuthenticated(), controller.index);
 router.get("/username/:username", auth.isAuthenticated(), controller.user);
+router.get("/music/:username",  auth.isAuthenticated(), controller.otherMusic);
+
 
 
 router.post("/", controller.create);

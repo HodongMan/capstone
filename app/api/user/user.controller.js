@@ -73,6 +73,21 @@ export function login(req, res, next){
         .catch(loginError);
 }
 
+export function otherMusic(req, res, next){
+    User.findOne({
+        name : req.params.username,
+    })
+    .then((user) => {
+        if(!user){
+            return res.status(401).json(handleError(res));
+        }
+        return res.status(202).json({
+            music : user.like.reverse(),
+        });
+    })
+    .catch(handleError(res));
+}
+
 export function index(req, res, next){
 
     User.findOne({
@@ -181,6 +196,7 @@ export function like(req, res, next){
             if(!music){
                 return handleError(res);
             }
+
             user.like.push(music);
 
             user.save()
