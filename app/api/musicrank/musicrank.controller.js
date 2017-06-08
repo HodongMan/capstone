@@ -7,7 +7,7 @@ import request from 'request';
 
 import MusicRank from './musicrank.model';
 import * as handle from '../handle';
-
+import User from '../user/user.model';
 
 export function update (req, res, next){
 
