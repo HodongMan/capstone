@@ -84,7 +84,7 @@ export function videoSearch(req, res, next){
                 likeCount,
             };
 
-            newMusic.findOneAndUpdate(
+            Music.findOneAndUpdate(
                 {videoId,}, // find a document with that filter
                 newMusic, // document to insert when nothing was found
                 {upsert: true, new: true, runValidators: true
