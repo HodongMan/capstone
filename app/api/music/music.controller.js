@@ -71,7 +71,7 @@ export function videoSearch(req, res, next){
 
             let newJson = JSON.parse(html);
             let videoId = newJson.items[0].id;
-            let title = newJson.items[0].snippet.itle;
+            let title = newJson.items[0].snippet.title;
             let thumbnail = newJson.items[0].snippet.thumbnails.default.url;
             let viewCount = newJson.items[0].statistics.viewCount;
             let likeCount = newJson.items[0].statistics.viewCount;
