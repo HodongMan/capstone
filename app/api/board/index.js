@@ -8,10 +8,11 @@ import * as auth from '../../auth/auth';
 const router = new Router();
 
 router.get("/", controller.index);
-router.get("/hot", controller.hot);
+router.get("/hot", auth.isAuthenticated(), controller.hot);
 router.get("/:boardId", auth.isAuthenticated(), controller.show);
 
 router.get("/festival/:fesitvalId", auth.isAuthenticated(), controller.festival);
+router.get("/festival/hot/:fesitvalId", auth.isAuthenticated(), controller.festivalHot);
 router.get("/festival/:fesitvalId/tag/:tagName", auth.isAuthenticated(), controller.festival);
 router.get("/user/:user", auth.isAuthenticated(), controller.user);
 router.get("/search/:search", controller.search);

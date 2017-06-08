@@ -29,6 +29,16 @@ export function hot(req, res, next){
 
 }
 
+export function festivalHot(req, res, next){
+
+    let type = req.params.fesitvalId;
+
+    Board.find({type : type}, null, {sort : '-viewCount'}).limit(10).exec()
+    .then(board => res.status(202).json(board))
+    .catch(handle.handleError(res));
+
+}
+
 export function show(req, res, next){
 
     let id = req.params.boardId;
